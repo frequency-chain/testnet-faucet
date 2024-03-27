@@ -37,6 +37,20 @@ const rococo: NetworkData = {
   matrixWhitelistPatterns: parityWhitelist,
 };
 
+const frequencyRococo: NetworkData = {
+  balanceCap: 1000,
+  chains: [
+    { name: "Frequency Rococo Testnet", id: -1 },
+  ],
+  currency: "XRQCY",
+  decimals: 8,
+  dripAmount: "100",
+  explorer: null,
+  networkName: "Frequency Rococo Testnet",
+  rpcEndpoint: "wss://rpc.rococo.frequency.xyz",
+  matrixWhitelistPatterns: [],
+};
+
 const westend: NetworkData = {
   balanceCap: 100,
   chains: [
@@ -111,7 +125,7 @@ const e2e: NetworkData = {
   matrixWhitelistPatterns: parityWhitelist,
 };
 
-export const networks: Record<string, NetworkData> = { rococo, versi, westend, e2e, trappist, paseo };
+export const networks: Record<string, NetworkData> = { rococo, versi, westend, e2e, trappist, paseo, frequencyRococo };
 
 export function getNetworkData(networkName: string): NetworkData {
   if (!Object.keys(networks).includes(networkName)) {
