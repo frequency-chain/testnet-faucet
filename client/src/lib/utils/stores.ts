@@ -8,9 +8,9 @@ export const testnet = writable<NetworkData>(Rococo);
 export const testnetName = derived(testnet, ($net) => $net.networkName);
 
 interface FaucetOperation {
-  success: boolean;
-  hash: string;
-  error?: string;
+	success: boolean;
+	hash: string;
+	error?: string;
 }
 
 export const operation = writable<FaucetOperation>();

@@ -39,9 +39,7 @@ const rococo: NetworkData = {
 
 const frequencyRococo: NetworkData = {
   balanceCap: 1000,
-  chains: [
-    { name: "Frequency Rococo Testnet", id: -1 },
-  ],
+  chains: [{ name: "Frequency Rococo Testnet", id: -1 }],
   currency: "XRQCY",
   decimals: 8,
   dripAmount: "100",

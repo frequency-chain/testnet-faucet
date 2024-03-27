@@ -27,17 +27,20 @@ describe("Faucet E2E", () => {
   let e2eSetup: E2ESetup;
   let dripRepository: Repository<Drip>;
 
-  const polkadotApi = new ApiPromise({
-    // Zombienet relaychain node.
-    provider: new HttpProvider("http://localhost:9944"),
-    types: { Address: "AccountId", LookupSource: "AccountId" },
-  });
+  const relaychainClient = createClient(
+    getChain({
+      provider: WebSocketProvider("ws://127.0.0.1:9933"),
+      keyring: [],
+    }),
+  );
+  const relayChainApi = relaychainClient.getTypedApi(relaychainDescriptors);
 
-  const parachainApi = new ApiPromise({
-    // Zombienet parachain node.
-    provider: new HttpProvider("http://localhost:9945"),
-    types: { Address: "AccountId", LookupSource: "AccountId" },
-  });
+  const parachainClient = createClient(
+    getChain({
+      provider: WebSocketProvider("ws://127.0.0.1:9934"),
+      keyring: [],
+    }),
+  );
 
   const parachainApi = parachainClient.getTypedApi(parachainDescriptors);
 
