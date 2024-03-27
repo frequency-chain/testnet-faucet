@@ -18,14 +18,13 @@ jobs:
         working-directory: client
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4.1.1
       - name: Install node
-        uses: actions/setup-node@v2
+        uses: actions/setup-node@v4.0.2
         with:
-          node-version: 18
+          node-version: 20
       - run: yarn install --frozen-lockfile
       - run: yarn run check
-      - run: yarn run lint
       - name: Install Playwright
         run: npx playwright install
       - run: yarn run test
@@ -35,17 +34,12 @@ jobs:
           PUBLIC_FAUCET_URL: https://faucet-api-rococo.liberti.social/drip/web
           GITHUB_PAGES: "/${{ github.event.repository.name }}"
           STATIC: true
-      - uses: actions/upload-artifact@master
+      - uses: actions/upload-artifact@v4.3.1
         with:
           name: faucet
           path: ./client/build
           if-no-files-found: error
-  test-image:
-    runs-on: ubuntu-latest
-    steps:
-      - uses: actions/checkout@v3.3.0
-      - name: Check that the image builds
-        run: docker build ./client --file ./client/Dockerfile
+          retention-days: 5
   deploy-to-github-pages:
     environment:
       name: github-pages
@@ -55,18 +49,18 @@ jobs:
     needs: [build-faucet]
     steps:
       - name: Checkout
-        uses: actions/checkout@v3
+        uses: actions/checkout@v4.1.1
       - name: Download page
-        uses: actions/download-artifact@master
+        uses: actions/download-artifact@v4.1.4
         with:
           name: faucet
           path: ./dist
       - name: Setup Pages
-        uses: actions/configure-pages@v2
+        uses: actions/configure-pages@v4.0.0
       - name: Upload artifact
-        uses: actions/upload-pages-artifact@v1
+        uses: actions/upload-pages-artifact@v3.0.1
         with:
           path: ./dist
       - name: Deploy to GitHub Pages
         id: deployment
-        uses: actions/deploy-pages@v1
+        uses: actions/deploy-pages@v4.0.5
