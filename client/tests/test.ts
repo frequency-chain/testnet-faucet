@@ -7,7 +7,7 @@ import {
 	type Page
 } from "@playwright/test";
 
-const chains = [{ name: "Frequency Rococo Chain", id: -1 }];
+const chains = [{ name: "Frequency Rococo Testnet Chain", id: -1 }];
 
 type FormSubmit = {
 	address: string;

@@ -68,9 +68,9 @@
       </ul>
     </div>
   {/if}
-  <div class="custom-chain-switch" on:click={switchCustomValue} data-testid="custom-network-button">
+  <!-- <div class="custom-chain-switch" on:click={switchCustomValue} data-testid="custom-network-button">
     &#8594; {customBtnMessage}
-  </div>
+  </div> -->
 </div>
 
 <style lang="postcss">

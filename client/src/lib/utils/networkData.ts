@@ -23,9 +23,9 @@ export interface NetworkData {
 }
 
 export const Rococo: NetworkData = {
-	networkName: "Frequency Rococo",
+	networkName: "Frequency",
 	currency: "XRQCY",
-	chains: [{ name: "Frequency Rococo Chain", id: -1 }],
+	chains: [{ name: "Frequency Rococo Testnet", id: -1 }],
 	endpoint: faucetUrl(PUBLIC_FAUCET_URL),
 	explorer: null,
 };
@@ -61,10 +61,10 @@ export const Trappist: NetworkData = {
 };
 
 export const Networks: { network: NetworkData; url: string }[] = [
-  { network: Rococo, url: (base as string) || "/" },
-  { network: Paseo, url: `${base as string}/paseo` },
-  { network: Westend, url: `${base as string}/westend` },
-  { network: Trappist, url: `${base as string}/trappist` },
+  { network: Rococo, url: "https://faucet.polkadot.io" },
+  { network: Paseo, url: "https://faucet.polkadot.io/paseo" },
+  { network: Westend, url: "https://faucet.polkadot.io/westend" },
+  { network: Trappist, url: "https://faucet.polkadot.io/trappist" },
 ];
 
 export function getChainName(network: NetworkData, id: number): string | null {
