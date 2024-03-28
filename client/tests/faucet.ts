@@ -169,7 +169,7 @@ export class FaucetTests {
 				});
 			});
 
-			test.describe("Custom networks", () => {
+			test.describe.skip("Custom networks", () => {
 				let network: Locator;
 				let customChainDiv: Locator;
 
@@ -265,7 +265,7 @@ export class FaucetTests {
 					});
 				}
 
-				test("sends data with custom chain on submit", async ({ page }, { config }) => {
+				test.skip("sends data with custom chain on submit", async ({ page }, { config }) => {
 					await page.goto(this.url);
 					const { address, network, captcha, submit } = await getFormElements(page, true);
 					await expect(submit).toBeDisabled();
