@@ -42,7 +42,7 @@ const frequencyRococo: NetworkData = {
   chains: [{ name: "Frequency Rococo Testnet", id: -1 }],
   currency: "XRQCY",
   decimals: 8,
-  dripAmount: "100",
+  dripAmount: "5000",
   explorer: null,
   networkName: "Frequency Rococo Testnet",
   rpcEndpoint: "wss://rpc.rococo.frequency.xyz",
