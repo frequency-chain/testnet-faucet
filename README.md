@@ -1,6 +1,6 @@
-## Generic Faucet for Substrate based chains
+## Frequency Testnet Faucet
 
-[![GitHub Issue Sync](https://github.com/paritytech/polkadot-testnet-faucet/actions/workflows/github-issue-sync.yml/badge.svg)](https://github.com/paritytech/polkadot-testnet-faucet/actions/workflows/github-issue-sync.yml)
+Fork of [paritytech/polkadot-testnet-faucet](https://github.com/paritytech/polkadot-testnet-faucet)
 
 ## Development
 
