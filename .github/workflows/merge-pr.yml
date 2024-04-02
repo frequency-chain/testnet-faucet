@@ -15,7 +15,7 @@ jobs:
     env:
       DOCKER_REGISTRY: ghcr.io
       DOCKER_PLATFORM: "linux/amd64"
-      DOCKER_IMAGE_NAME: faucet
+      DOCKER_IMAGE_NAME: ${{ github.repository }}
     runs-on: ubuntu-latest
 
     permissions:
