@@ -39,6 +39,7 @@ jobs:
         with:
           images: ${{ env.DOCKER_REGISTRY }}/${{ env.DOCKER_IMAGE_NAME }}
           tags: |
+            type=raw,value=latest
             type=sha,prefix=,format=short
             type=raw,value=latest,enable=${{ github.ref == format('refs/heads/{0}', 'main') }}
 
