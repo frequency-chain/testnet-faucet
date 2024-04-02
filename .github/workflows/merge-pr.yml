@@ -25,11 +25,6 @@ jobs:
     steps:
       - name: Check Out Repo
         uses: actions/checkout@v4
-      - name: Derive Short SHA
-        id: short-sha
-        run: |
-          short_sha=${GITHUB_SHA::7}
-          echo "short_sha=$short_sha" >> $GITHUB_OUTPUT
 
       - name: Log in to the Container registry
         uses: docker/login-action@v3
@@ -44,7 +39,7 @@ jobs:
         with:
           images: ${{ env.REGISTRY }}/${{ env.DOCKER_IMAGE_NAME }}
           tags: |
-            type=sha,format=short
+            type=sha,prefix=,format=short
             type=raw,value=latest,enable=${{ github.ref == format('refs/heads/{0}', 'main') }}
 
       - name: Build and push Docker image
