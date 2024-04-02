@@ -12,9 +12,8 @@ yarn simple-git-hooks
 ```
 
 #### start local database:
-```bash
-yarn dev:db
-```
+
+Uses sqlite file, no start needed.
 
 #### run migrations:
 ```bash
