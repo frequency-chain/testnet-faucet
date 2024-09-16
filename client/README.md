@@ -9,7 +9,9 @@ The objective of this project is to simplify the use of the Faucet through a sta
 Two current options are to [access Matrix and contact a bot](https://wiki.polkadot.network/docs/learn-DOT#getting-tokens-on-the-rococo-testnet) or [ink! documentation](https://use.ink/faucet).
 
 ## Development
-
+```shell
+cp env.sample .env
+```
 To develop you need two env variables:
 
 - `PUBLIC_CAPTCHA_KEY`: The [reCaptcha v2 site key](https://www.google.com/u/0/recaptcha/admin).

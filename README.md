@@ -1,8 +1,10 @@
-## Frequency Testnet Faucet
+# Frequency Testnet Faucet
+This repo consists of a backend (the top directory) and a frontend, which lives in the [client](https://github.com/frequency-chain/testnet-faucet/tree/main/client)
+directory.
 
-Fork of [paritytech/polkadot-testnet-faucet](https://github.com/paritytech/polkadot-testnet-faucet)
+The backend is a fork of [paritytech/polkadot-testnet-faucet](https://github.com/paritytech/polkadot-testnet-faucet) and is described here.
 
-## Development
+## Backend Development
 
 #### Setup dependencies and git hooks
 
