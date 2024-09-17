@@ -24,7 +24,11 @@
         operation.set({ success: true, hash });
       })
       .catch((error) => {
-        operation.set({ success: false, error, hash: "" });
+        if (error.toString().match("TypeError: Failed to fetch")) {
+           operation.set({success: false, error: "Could not connect to faucet server.", hash: "" });
+        } else {
+          operation.set({ success: false, error, hash: "" });
+        }
       });
   }
 
