@@ -50,10 +50,12 @@ export async function faucetRequest(
 	// eslint-disable-next-line @typescript-eslint/no-unsafe-assignment
 	const result = await fetchResult.json();
 	if ("error" in result) {
-		// FIXME
-		// eslint-disable-next-line @typescript-eslint/no-unsafe-argument
-		throw new Error(result.error);
-	} else {
+    console.error(result);
+    const errText: string = ("Assertion failed" in result) ?
+      "There was an unknown problem." :
+      result.error;
+    throw new Error(errText);
+  } else {
 		return result.hash;
 	}
 }

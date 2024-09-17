@@ -6,6 +6,7 @@
   import CaptchaV2 from "./CaptchaV2.svelte";
   import NetworkDropdown from "./NetworkDropdown.svelte";
   import NetworkInput from "./NetworkInput.svelte";
+  import {validateAddress} from "@polkadot/util-crypto";
 
   let address: string = "";
   export let network: number = -1;
@@ -27,8 +28,19 @@
       });
   }
 
+  function addressValid(maybeAddress: string) {
+    try {
+      return validateAddress(maybeAddress);
+    } catch(error) {
+      console.error(error);
+      operation.set({ success: false, error: "Address is invalid", hash: "" });
+    }
+  }
+
   function onToken(tokenEvent: CustomEvent<string>) {
-    token = tokenEvent.detail;
+    if (address !== "" && addressValid(address)) {
+      token = tokenEvent.detail;
+    }
   }
 
   async function request(address: string): Promise<string> {
