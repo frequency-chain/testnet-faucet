@@ -1,6 +1,6 @@
 {
   "compilerOptions": {
-    "baseUrl": ".",
+    "baseUrl": "./",
     "declaration": true,
     "emitDecoratorMetadata": true,
     "esModuleInterop": true,
@@ -10,8 +10,10 @@
     "module": "commonjs",
     "moduleResolution": "node",
     "outDir": "./build",
+    "rootDir": "./",
     "paths": {
-      "src/*": ["./src/*"]
+      "src/*": ["/src/*"],
+      "logger": ["/src/logger"]
     },
     "plugins": [
       // Transform paths in output .js files
