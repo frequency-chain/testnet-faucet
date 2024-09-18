@@ -27,6 +27,7 @@ jobs:
         with:
           node-version: 20
       - run: yarn install --frozen-lockfile
+      - run: yarn run check
       - name: Install Playwright
         run: npx playwright install
       - run: yarn run test
