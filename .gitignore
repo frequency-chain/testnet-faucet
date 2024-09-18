@@ -1,4 +1,6 @@
 .idea
+.last-run.json
+test-results
 .env
 node_modules
 .yarn
