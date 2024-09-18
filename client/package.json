@@ -7,11 +7,12 @@
     "build": "vite build",
     "preview": "vite preview",
     "test": "playwright test",
-    "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json",
+    "check": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --threshold error",
     "check:watch": "svelte-kit sync && svelte-check --tsconfig ./tsconfig.json --watch"
   },
   "devDependencies": {
-    "@playwright/test": "^1.40.0",
+    "@playwright/test": "^1.47.1",
+    "@polkadot/util-crypto": "^13.1.1",
     "@sveltejs/adapter-auto": "^3.2.5",
     "@sveltejs/adapter-node": "^5.2.3",
     "@sveltejs/adapter-static": "^3.0.5",
