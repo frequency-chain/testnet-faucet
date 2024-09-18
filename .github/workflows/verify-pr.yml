@@ -27,6 +27,7 @@ jobs:
         with:
           node-version: 20
       - run: yarn install --frozen-lockfile
+      - run: cp env.sample .env
       - run: yarn run check
       - name: Install Playwright
         run: npx playwright install
@@ -34,9 +35,6 @@ jobs:
       - run: yarn run build
         env:
           PUBLIC_CAPTCHA_KEY: 6LesXHomAAAAAGVVTCgc467t8hvBbmK7IlYZCc8O
-          PUBLIC_FORUM: ""
-          PUBLIC_FAUCET_URL: ""
-          PUBLIC_DEMO_MODE: false
           GITHUB_PAGES: "/${{ github.event.repository.name }}"
           STATIC: true
       - uses: actions/upload-artifact@master
