@@ -17,24 +17,16 @@ export interface NetworkData {
   matrixWhitelistPatterns: RegExp[];
 }
 
-const parityWhitelist = [/^.*:parity.io$/, /^.*:web3.foundation$/];
-
-const rococo: NetworkData = {
+const localhost: NetworkData = {
   balanceCap: 1000,
-  chains: [
-    { name: "Rococo Relay Chain", id: -1 },
-    { name: "Rockmine", id: 1000 },
-    { name: "Contracts", id: 1002 },
-    { name: "Encointer Lietaer", id: 1003 },
-    { name: "Bridgehub", id: 1013 },
-  ],
-  currency: "ROC",
-  decimals: 12,
-  dripAmount: "100",
-  explorer: "https://rococo.subscan.io",
-  networkName: "Rococo",
-  rpcEndpoint: "wss://rococo-rpc.polkadot.io/",
-  matrixWhitelistPatterns: parityWhitelist,
+  chains: [{ name: "Localhost", id: 1000 }],
+  currency: "UNIT",
+  decimals: 8,
+  dripAmount: "10",
+  explorer: "",
+  networkName: "Localhost",
+  rpcEndpoint: "ws://127.0.0.1:9944",
+  matrixWhitelistPatterns: [],
 };
 
 const frequencyPaseo: NetworkData = {
@@ -47,46 +39,6 @@ const frequencyPaseo: NetworkData = {
   networkName: "Frequency Paseo Testnet",
   rpcEndpoint: "wss://0.rpc.testnet.amplica.io",
   matrixWhitelistPatterns: [],
-};
-
-const westend: NetworkData = {
-  balanceCap: 100,
-  chains: [
-    { name: "Westend Relay Chain", id: -1 },
-    { name: "Westmint", id: 1000 },
-    { name: "Collectives", id: 1001 },
-  ],
-  currency: "WND",
-  decimals: 12,
-  dripAmount: "10",
-  explorer: "https://westend.subscan.io",
-  networkName: "Westend",
-  rpcEndpoint: "wss://westend-rpc.polkadot.io/",
-  matrixWhitelistPatterns: parityWhitelist,
-};
-
-const versi: NetworkData = {
-  balanceCap: 1000,
-  chains: [],
-  currency: "VRS",
-  decimals: 12,
-  dripAmount: "100",
-  explorer: null,
-  networkName: "Versi",
-  rpcEndpoint: "wss://versi-rpc-node-0.parity-versi.parity.io/",
-  matrixWhitelistPatterns: parityWhitelist,
-};
-
-const trappist: NetworkData = {
-  balanceCap: 100,
-  chains: [],
-  currency: "HOP",
-  decimals: 12,
-  dripAmount: "10",
-  explorer: null,
-  networkName: "Trappist",
-  rpcEndpoint: "wss://rococo-trappist-rpc.polkadot.io/",
-  matrixWhitelistPatterns: parityWhitelist,
 };
 
 const paseo: NetworkData = {
@@ -111,26 +63,10 @@ const paseo: NetworkData = {
   ],
 };
 
-const e2e: NetworkData = {
-  balanceCap: 100,
-  chains: [],
-  currency: "UNIT",
-  decimals: 12,
-  dripAmount: "10",
-  explorer: null,
-  networkName: "Rococo",
-  rpcEndpoint: "ws://host.docker.internal:9933/",
-  matrixWhitelistPatterns: parityWhitelist,
-};
-
 export const networks: Record<string, NetworkData> = {
-  rococo,
-  versi,
-  westend,
-  e2e,
-  trappist,
   paseo,
   frequencyPaseo,
+  localhost,
 };
 
 export function getNetworkData(networkName: string): NetworkData {

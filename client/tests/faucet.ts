@@ -1,10 +1,10 @@
 import {
-	type Frame,
-	type FullConfig,
-	type Locator,
-	type Page,
-	expect,
-	test
+  type Frame,
+  type FullConfig,
+  type Locator,
+  type Page,
+  expect,
+  test, type ElementHandle, type Route
 } from "@playwright/test";
 
 type FormSubmit = {
@@ -17,29 +17,7 @@ const getFormElements = async (page: Page, getCaptcha = false) => {
 	// eslint-disable-next-line @typescript-eslint/consistent-type-assertions
 	let captcha: Locator = {} as Locator;
 	if (getCaptcha) {
-		// ?: Hack. We need to wait for the frame to load and then invade it.
-		await page.reload();
-		const captchaFrame = await new Promise<Frame>((resolve, reject) => {
-			let i = 0;
-			// function that waits for the frame and timeouts after 3 seconds
-			// FIXME consider "until" from "@eng-automation/js"?
-			// eslint-disable-next-line no-restricted-syntax
-			(function waitForFrame() {
-				const captchaFrames = page
-					.frames()
-					.filter((f) => f.url().includes("https://www.google.com/recaptcha/api2/"));
-				if (captchaFrames.length > 0) {
-					return resolve(captchaFrames[0]);
-				} else {
-					i++;
-					if (i > 10) {
-						reject(new Error("Timeout"));
-					}
-				}
-				setTimeout(waitForFrame, 300);
-			})();
-		});
-		captcha = captchaFrame?.locator("#recaptcha-anchor") as Locator;
+    captcha = await page.locator('iframe[title="Widget containing checkbox for hCaptcha security challenge"]');
 	}
 	return {
 		address: page.getByTestId("address"),
@@ -222,10 +200,10 @@ export class FaucetTests {
 					const { address, captcha, submit } = await getFormElements(page, true);
 					await expect(submit).toBeDisabled();
 					await address.fill(validAddress);
-					await captcha.click();
+					await captcha.contentFrame().getByLabel('hCaptcha checkbox with text').click();
 					const faucetUrl = this.getFaucetUrl(config);
 
-					await page.route(faucetUrl, (route) =>
+					await page.route(faucetUrl, (route: Route) =>
 						route.fulfill({ body: JSON.stringify({ hash: "hash" }) })
 					);
 
@@ -254,7 +232,7 @@ export class FaucetTests {
 						const networkBtn = page.getByTestId(`network-${i}`);
 						await expect(networkBtn).toBeVisible();
 						await networkBtn.click();
-						await captcha.click();
+            await captcha.contentFrame().getByLabel('hCaptcha checkbox with text').click();
 						await expect(submit).toBeEnabled();
 						const faucetUrl = this.getFaucetUrl(config);
 						await page.route(faucetUrl, (route) =>
@@ -284,7 +262,7 @@ export class FaucetTests {
 					const customChainDiv = page.getByTestId("custom-network-button");
 					await customChainDiv.click();
 					await network.fill("9999");
-					await captcha.click();
+          await captcha.contentFrame().getByLabel('hCaptcha checkbox with text').click();
 					await expect(submit).toBeEnabled();
 					const faucetUrl = this.getFaucetUrl(config);
 					await page.route(faucetUrl, (route) =>

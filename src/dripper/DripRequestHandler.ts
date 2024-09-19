@@ -3,9 +3,9 @@ import { logger } from "../logger";
 import { counters } from "../metrics";
 import { DripRequestType, DripResponse } from "../types";
 import { isAccountPrivileged } from "../utils";
+import { Captcha } from "./Captcha";
 import { hasDrippedToday, saveDrip } from "./dripperStorage";
 import type { PolkadotActions } from "./polkadot/PolkadotActions";
-import { Recaptcha } from "./Recaptcha";
 
 const isParachainValid = (parachain: string): boolean => {
   if (!parachain) {
@@ -22,7 +22,7 @@ const isParachainValid = (parachain: string): boolean => {
 export class DripRequestHandler {
   constructor(
     private actions: PolkadotActions,
-    private recaptcha: Recaptcha,
+    private recaptcha: Captcha,
   ) {}
 
   async handleRequest(
@@ -66,7 +66,7 @@ export class DripRequestHandler {
 let instance: DripRequestHandler | undefined;
 export const getDripRequestHandlerInstance = (polkadotActions: PolkadotActions) => {
   if (!instance) {
-    const recaptchaService = new Recaptcha();
+    const recaptchaService = new Captcha();
     instance = new DripRequestHandler(polkadotActions, recaptchaService);
   }
   return instance;
