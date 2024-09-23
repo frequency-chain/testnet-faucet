@@ -233,7 +233,7 @@ export class FaucetTests {
 						const networkBtn = page.getByTestId(`network-${i}`);
 						await expect(networkBtn).toBeVisible();
 						await networkBtn.click();
-            await captcha.click();
+						await captcha.click();
 						await expect(submit).toBeEnabled();
 						const faucetUrl = this.getFaucetUrl(config);
 						await page.route(faucetUrl, (route) =>
@@ -263,7 +263,7 @@ export class FaucetTests {
 					const customChainDiv = page.getByTestId("custom-network-button");
 					await customChainDiv.click();
 					await network.fill("9999");
-          await captcha.click();
+					await captcha.click();
 					await expect(submit).toBeEnabled();
 					const faucetUrl = this.getFaucetUrl(config);
 					await page.route(faucetUrl, (route) =>
