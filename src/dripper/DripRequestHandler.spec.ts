@@ -12,7 +12,7 @@ const actionsMock: PolkadotActions = {
     addr === "unlucky" ? { error: "An error occurred when sending tokens" } : { hash: "0x123" },
 } as any; // eslint-disable-line @typescript-eslint/no-explicit-any
 
-const recaptcha: Captcha = { validate: async (captcha: string) => captcha === "valid" } as any; // eslint-disable-line @typescript-eslint/no-explicit-any
+const captcha: Captcha = { validate: async (cap: string) => cap === "valid" } as any; // eslint-disable-line @typescript-eslint/no-explicit-any
 
 function assumeMocked<R, A extends unknown[]>(f: (...args: A) => R): jest.Mock<R, A> {
   return f as jest.Mock<R, A>;
@@ -22,7 +22,7 @@ describe("DripRequestHandler", () => {
   let handler: DripRequestHandler;
 
   beforeEach(async () => {
-    handler = new DripRequestHandler(actionsMock, recaptcha);
+    handler = new DripRequestHandler(actionsMock, captcha);
     jest.clearAllMocks();
   });
 
@@ -94,7 +94,7 @@ describe("DripRequestHandler", () => {
       amount: convertAmountToBn("0.5"),
       parachain_id: "1002",
       address: "123",
-      recaptcha: "valid",
+      captcha: "valid",
     } as const;
 
     it("Goes through one time", async () => {
@@ -143,7 +143,7 @@ describe("DripRequestHandler", () => {
     });
 
     it("Returns an error response if captcha is invalid", async () => {
-      const result = await handler.handleRequest({ ...defaultRequest, recaptcha: "invalid" });
+      const result = await handler.handleRequest({ ...defaultRequest, captcha: "invalid" });
       expect(result).toEqual({ error: "Captcha validation was unsuccessful" });
     });
 

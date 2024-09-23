@@ -18,7 +18,7 @@ export class Captcha {
       params.append("response", captcha);
       const captchaResult = await axios.post("https://api.hcaptcha.com/siteverify", params);
       if (captchaResult.data.success === true) return true;
-      logger.debug("❌Negative recaptcha validation result", captchaResult.data);
+      logger.debug("❌Negative captcha validation result", captchaResult.data);
       return false;
     } catch (e) {
       logger.error(`⭕ An error occurred when validating captcha`, e);

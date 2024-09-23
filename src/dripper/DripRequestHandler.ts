@@ -22,18 +22,18 @@ const isParachainValid = (parachain: string): boolean => {
 export class DripRequestHandler {
   constructor(
     private actions: PolkadotActions,
-    private recaptcha: Captcha,
+    private captcha: Captcha,
   ) {}
 
   async handleRequest(
     opts:
-      | ({ external: true; recaptcha: string } & Omit<DripRequestType, "sender">)
-      | ({ external: false; sender: string } & Omit<DripRequestType, "recaptcha">),
+      | ({ external: true; captcha: string } & Omit<DripRequestType, "sender">)
+      | ({ external: false; sender: string } & Omit<DripRequestType, "captcha">),
   ): Promise<DripResponse> {
     const { external, address: addr, parachain_id, amount } = opts;
     counters.totalRequests.inc();
 
-    if (external && !(await this.recaptcha.validate(opts.recaptcha)))
+    if (external && !(await this.captcha.validate(opts.captcha)))
       return { error: "Captcha validation was unsuccessful" };
     if (!isParachainValid(parachain_id))
       return { error: "Parachain invalid. Be sure to set a value between 1000 and 9999" };
@@ -66,8 +66,8 @@ export class DripRequestHandler {
 let instance: DripRequestHandler | undefined;
 export const getDripRequestHandlerInstance = (polkadotActions: PolkadotActions) => {
   if (!instance) {
-    const recaptchaService = new Captcha();
-    instance = new DripRequestHandler(polkadotActions, recaptchaService);
+    const captchaService = new Captcha();
+    instance = new DripRequestHandler(polkadotActions, captchaService);
   }
   return instance;
 };

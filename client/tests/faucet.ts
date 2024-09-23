@@ -9,7 +9,7 @@ import {
 
 type FormSubmit = {
 	address: string;
-	recaptcha: string;
+	captcha: string;
 	parachain_id?: string;
 };
 
@@ -17,7 +17,8 @@ const getFormElements = async (page: Page, getCaptcha = false) => {
 	// eslint-disable-next-line @typescript-eslint/consistent-type-assertions
 	let captcha: Locator = {} as Locator;
 	if (getCaptcha) {
-    captcha = await page.locator('iframe[title="Widget containing checkbox for hCaptcha security challenge"]');
+    const iframe = await page.locator('iframe[title="Widget containing checkbox for hCaptcha security challenge"]');
+    captcha = iframe.contentFrame().getByLabel('hCaptcha checkbox with text');
 	}
 	return {
 		address: page.getByTestId("address"),
@@ -200,7 +201,7 @@ export class FaucetTests {
 					const { address, captcha, submit } = await getFormElements(page, true);
 					await expect(submit).toBeDisabled();
 					await address.fill(validAddress);
-					await captcha.contentFrame().getByLabel('hCaptcha checkbox with text').click();
+					await captcha.click();
 					const faucetUrl = this.getFaucetUrl(config);
 
 					await page.route(faucetUrl, (route: Route) =>
@@ -211,7 +212,7 @@ export class FaucetTests {
 						if (req.url() === faucetUrl) {
 							const data = req.postDataJSON() as FormSubmit;
 							expect(data.address).toEqual(validAddress);
-							return !!data.recaptcha;
+							return !!data.captcha;
 						}
 						return false;
 					});
@@ -232,7 +233,7 @@ export class FaucetTests {
 						const networkBtn = page.getByTestId(`network-${i}`);
 						await expect(networkBtn).toBeVisible();
 						await networkBtn.click();
-            await captcha.contentFrame().getByLabel('hCaptcha checkbox with text').click();
+            await captcha.click();
 						await expect(submit).toBeEnabled();
 						const faucetUrl = this.getFaucetUrl(config);
 						await page.route(faucetUrl, (route) =>
@@ -244,7 +245,7 @@ export class FaucetTests {
 								const data = req.postDataJSON() as FormSubmit;
 								const parachain_id = chain.id > 0 ? chain.id.toString() : undefined;
 								expect(data).toMatchObject({ address: validAddress, parachain_id });
-								return !!data.recaptcha;
+								return !!data.captcha;
 							}
 							return false;
 						});
@@ -262,7 +263,7 @@ export class FaucetTests {
 					const customChainDiv = page.getByTestId("custom-network-button");
 					await customChainDiv.click();
 					await network.fill("9999");
-          await captcha.contentFrame().getByLabel('hCaptcha checkbox with text').click();
+          await captcha.click();
 					await expect(submit).toBeEnabled();
 					const faucetUrl = this.getFaucetUrl(config);
 					await page.route(faucetUrl, (route) =>
@@ -273,7 +274,7 @@ export class FaucetTests {
 						if (req.url() === faucetUrl) {
 							const data = req.postDataJSON() as FormSubmit;
 							expect(data).toMatchObject({ address: validAddress, parachain_id: "9999" });
-							return !!data.recaptcha;
+							return !!data.captcha;
 						}
 						return false;
 					});

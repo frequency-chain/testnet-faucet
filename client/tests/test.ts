@@ -11,7 +11,7 @@ const chains = [{ name: "Frequency Paseo Testnet Chain", id: -1 }];
 
 type FormSubmit = {
 	address: string;
-	recaptcha: string;
+	captcha: string;
 	parachain_id?: string;
 };
 
@@ -100,7 +100,7 @@ test.describe("form interaction", () => {
 		const { address, captcha, submit } = await getFormElements(page, true);
 		await expect(submit).toBeDisabled();
 		await address.fill(testAddress);
-    await captcha.contentFrame().getByLabel('hCaptcha checkbox with text').click();
+    await captcha.click();
 		await expect(submit).toBeEnabled();
 	});
 
@@ -110,7 +110,7 @@ test.describe("form interaction", () => {
 		await expect(submit).toBeDisabled();
 		const myAddress = "0x000000001";
 		await address.fill(myAddress);
-    await captcha.contentFrame().getByLabel('hCaptcha checkbox with text').click();
+    await captcha.click();
 		const url = getFaucetUrl(config);
 		await page.route(url, (route) =>
 			route.fulfill({
@@ -122,7 +122,7 @@ test.describe("form interaction", () => {
 			if (req.url() === url) {
 				const data = req.postDataJSON() as FormSubmit;
 				expect(data.address).toEqual(myAddress);
-				return !!data.recaptcha;
+				return !!data.captcha;
 			}
 			return false;
 		});
@@ -156,7 +156,7 @@ test.describe("form interaction", () => {
 		const { address, captcha, submit } = await getFormElements(page, true);
 		await expect(submit).toBeDisabled();
 		await address.fill("0x123");
-    await captcha.contentFrame().getByLabel('hCaptcha checkbox with text').click();
+    await captcha.click();
 		await page.route(getFaucetUrl(config), (route) =>
 			route.fulfill({
 				body: JSON.stringify({ error })

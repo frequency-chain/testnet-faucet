@@ -17,6 +17,7 @@ export interface NetworkData {
   matrixWhitelistPatterns: RegExp[];
 }
 
+// the server connects to a locally running Frequency chain.
 const localhost: NetworkData = {
   balanceCap: 1000,
   chains: [{ name: "Localhost", id: 1000 }],
@@ -29,6 +30,7 @@ const localhost: NetworkData = {
   matrixWhitelistPatterns: [],
 };
 
+// the server connects to the specified Frequency Paseo RPC endpoint
 const frequencyPaseo: NetworkData = {
   balanceCap: 1000,
   chains: [{ name: "Frequency Paseo Testnet", id: -1 }],
@@ -41,6 +43,7 @@ const frequencyPaseo: NetworkData = {
   matrixWhitelistPatterns: [],
 };
 
+// the server connects to a Polkadot Paseo testnet RPC endpoint
 const paseo: NetworkData = {
   balanceCap: 500,
   chains: [],
