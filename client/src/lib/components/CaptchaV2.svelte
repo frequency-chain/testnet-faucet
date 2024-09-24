@@ -3,7 +3,7 @@
   import Cross from "./icons/Cross.svelte";
   // @ts-ignore
   import HCaptcha from 'svelte-hcaptcha';
-  import {PUBLIC_CAPTCHA_KEY} from '$env/static/public';
+  import { PUBLIC_CAPTCHA_KEY } from '$env/static/public';
 
   const siteKey = PUBLIC_CAPTCHA_KEY;
 
