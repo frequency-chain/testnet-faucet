@@ -31,7 +31,6 @@
 	}
 
 	h1 {
-		font-family: "Poppins", sans-serif;
 		@apply text-white text-4xl;
 		font-weight: 700;
 	}

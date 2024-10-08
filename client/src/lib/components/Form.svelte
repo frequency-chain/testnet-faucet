@@ -84,10 +84,6 @@
     margin-bottom: 1.5rem;
   }
 
-  form {
-    font-family: "Poppins", sans-serif;
-  }
-
   .form-background {
     background-color: #191924;
     border: 1px solid rgba(255, 255, 255, 0.3);
