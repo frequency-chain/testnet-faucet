@@ -16,7 +16,7 @@
 
 <style lang="postcss">
 	footer {
-		font-family: "Inter", sans-serif;
+		font-family: "Poppins", sans-serif;
 	}
 
 	.questions {

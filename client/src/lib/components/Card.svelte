@@ -31,7 +31,7 @@
 	}
 
 	h1 {
-		font-family: "Unbounded", sans-serif;
+		font-family: "Poppins", sans-serif;
 		@apply text-white text-4xl;
 		font-weight: 700;
 	}

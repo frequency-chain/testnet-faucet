@@ -79,7 +79,7 @@
   }
 
   .inter {
-    font-family: "Inter", sans-serif;
+    font-family: "Poppins", sans-serif;
   }
 
   .form-background {
@@ -100,7 +100,7 @@
   .custom-chain-switch {
     @apply text-left hover:underline hover:cursor-pointer;
     color: #c4affa;
-    font-family: "Inter", sans-serif;
+    font-family: "Poppins", sans-serif;
     font-weight: 400;
     font-size: 14px;
     margin-top: 8px;
