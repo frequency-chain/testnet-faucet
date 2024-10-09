@@ -75,7 +75,7 @@
 			Get some {$testnet.currency}s
 		</button>
 	{:else}
-		<button class="btn btn-primary loading" disabled> Loading</button>
+		<button class="btn submit-btn" disabled><div class="loading" /></button>
 	{/if}
 </form>
 

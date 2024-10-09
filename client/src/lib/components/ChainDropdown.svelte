@@ -82,7 +82,6 @@
 	}
 
 	.form-background {
-		background-color: #191924;
 		border: 1px solid #c8cdd0;
 	}
 
