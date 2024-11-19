@@ -1,12 +1,12 @@
 <script lang="ts">
 	import { base } from "$app/paths";
-	import logo from "$lib/assets/logo.svg";
+  import FrequencyLogo  from "$lib/components/icons/FrequencyLogo.svelte"
 </script>
 
 <div class="navigation-bar">
 	<div class="flex-1">
 		<div class="w-36 rounded-full">
-			<a href={`${base}/`}><img src={logo} alt="logo" /></a>
+			<a href={`${base}/`} class="text-black"><FrequencyLogo width="144"/></a>
 		</div>
 	</div>
 	<div class="flex-none">

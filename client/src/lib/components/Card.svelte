@@ -3,9 +3,9 @@
 	import { testnet } from "$lib/utils/stores";
 </script>
 
-<div class="card md:w-2/4 w-5/6 min-w-full shadow-xl faucet-card">
+<div class="card md:w-2/4 w-5/6 min-w-full shadow-xl">
 	<div class="card-body items-center text-center">
-		<h1>{$testnet.networkName} Faucet</h1>
+		<h1 class="title-h3 text-navy">{$testnet.networkName} Faucet</h1>
 		<h3>
 			Get {$testnet.currency} tokens for {$testnet.networkName} testnet.
 		</h3>
@@ -24,16 +24,3 @@
 		</div>
 	</div>
 {/if}
-
-<style lang="postcss">
-	h1 {
-		@apply text-black text-4xl;
-		font-weight: 700;
-	}
-
-	h3 {
-		@apply text-black opacity-70;
-		font-weight: 400;
-		font-size: 16px;
-	}
-</style>

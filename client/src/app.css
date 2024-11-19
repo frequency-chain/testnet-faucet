@@ -1,22 +1,15 @@
-@import url("https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Unbounded:wght@700;800&display=swap");
+@font-face {
+  font-family: 'Newake';
+  src: url('./style/indieground-newakefont-web/Newake-Font-Regular.eot');
+  src:
+    url('./style/indieground-newakefont-web/Newake-Font-Regular.woff') format('woff'),
+    url('./style/indieground-newakefont-web/Newake-Font-Regular.otf') format('opentype'),
+    url('./style/indieground-newakefont-web/Newake-Font-Regular.svg#filename') format('svg');
+}
+
 @tailwind base;
 @tailwind components;
-
-:root {
-	font-family: Poppins, Helvetica, Arial, sans-serif;
-	font-size: 16px;
-	line-height: 24px;
-	font-weight: 400;
-
-	color-scheme: light dark;
-
-	font-synthesis: none;
-	text-rendering: optimizeLegibility;
-	-webkit-font-smoothing: antialiased;
-	-moz-osx-font-smoothing: grayscale;
-	-webkit-text-size-adjust: 100%;
-	scroll-behavior: smooth;
-}
+@tailwind utilities;
 
 a {
 	font-weight: 500;
@@ -28,59 +21,21 @@ a:hover {
 	color: #535bf2;
 }
 
-body {
-	margin: 0;
-	display: flex;
-	place-items: center;
-	min-width: 320px;
-	min-height: 100vh;
-	background-color: #fefaf3;
-}
-
-@media (min-width: 768px) {
-	.background {
-		/* background-image: url("$lib/assets/circle.svg"), url("$lib/assets/circle.svg"), url("$lib/assets/circle.svg"); */
-		background-repeat: no-repeat;
-		position: absolute;
-		background-position-y: 10%, 73%, 50%;
-		background-position-x:
-			25%,
-			-13%,
-			115%;
-		background-size: 20%, 20%, 30%;
-		bottom: 0px;
-		right: 0px;
-		width: 100%;
-		height: 100%;
-		pointer-events: none;
-	}
-}
-
-h1 {
-	font-size: 3.2em;
-	line-height: 1.1;
-}
-
 .card {
-	padding: 2em;
+  @apply p-[2em] bg-cream;
 }
 
 button {
-	border-radius: 50%;
+  @apply bg-teal text-black font-bold cursor-pointer;
 	border: 1px solid transparent !important;
 	padding: 0.6em 1.2em;
-	font-size: 1em;
-	font-weight: bold;
-	font-family: inherit;
-	background-color: #55b1ab;
-	cursor: pointer;
 	transition: border-color 0.25s;
-	color: #fff;
+
 }
 
 button:disabled {
-	background-color: #c8cdd0;
-	color: #fff !important;
+  @apply bg-gray3;
+  color: white !important;
 }
 
 button:hover {
@@ -90,8 +45,7 @@ button:hover {
 
 @media (prefers-color-scheme: light) {
 	:root {
-		color: #213547;
-		background-color: #ffffff;
+    @apply text-black bg-white;
 	}
 
 	a:hover {
@@ -104,28 +58,48 @@ button:hover {
 }
 
 .submit-btn {
-	@apply btn w-full mt-6 rounded-3xl text-white;
-	background-color: #55b1ab;
-	text-transform: none;
+	@apply btn w-full mt-6 rounded-3xl text-black font-bold bg-teal;
+	/*text-transform: none;*/
 }
 
-.faucet-card {
-	background-color: #fff;
+@layer components {
+  /* Typeography */
+  .title-h2 {
+    @apply font-title text-[50px] leading-[1] tracking-wider md:text-[60px] lg:text-[64px];
+  }
+
+  .title-h3 {
+    @apply font-title text-[40px] leading-[1] tracking-wider md:text-[40px] lg:text-[44px];
+  }
+
+  .title-h5 {
+    @apply font-title text-[18px] leading-[1] tracking-wider sm:text-[20px] md:text-[22px] lg:text-[26px];
+  }
+  .body {
+    @apply text-normal md:text-md;
+  }
 }
 
-.card-title {
-	@apply text-black text-4xl;
-	font-weight: 700;
-}
+@layer base {
+  html {
+    color-scheme: light dark;
+    font-synthesis: none;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+    -webkit-text-size-adjust: 100%;
+    scroll-behavior: smooth;
+  }
 
-.card-subtitle {
-	@apply text-black opacity-70;
-	font-weight: 400;
-	font-size: 16px;
-}
+  body {
+    @apply m-0 min-w-f320 min-h-[100vh] flex items-center bg-white text-normal;
+  }
 
-.dropdown a {
-	color: black;
-}
+  button {
+    @apply select-none;
+  }
 
-@tailwind utilities;
+  ::placeholder {
+    @apply text-gray2 !important;
+  }
+}
