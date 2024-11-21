@@ -20,7 +20,9 @@
 <footer
   class="sm md:md mx-auto my-0 flex max-w-screen-xl flex-col items-center gap-f16 border-t-[2px] border-current py-f48 md:gap-f48 {fgColorText}"
 >
-  <FrequencyLogo fill="#000000"/>
+  <div class="px-f24">
+    <FrequencyLogo fill="#000000"/>
+  </div>
   <aside class="flex flex-col items-center space-y-4 text-center leading-none md:flex-row md:space-x-4 md:space-y-0">
     <div>
       © {new Date().getFullYear()} Frequency Network Foundation <span class="md:hidden">All Rights Reserved</span>

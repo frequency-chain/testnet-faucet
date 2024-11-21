@@ -1,6 +1,6 @@
 <script type="ts">
   export let fill='#55B1AB';
-  export let width='461'
+  export let width='100%'
 </script>
 
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" {width} height="68.256" viewBox="0 0 461.117 68.256">
