@@ -59,7 +59,7 @@
 			type="text"
 			bind:value={address}
 			placeholder="5rt6..."
-			class="input w-full text-sm lg:text-md p-f4 leading-tight form-background text-black"
+			class="input w-full text-normal lg:text-md p-f4 md:p-f12 form-background text-black"
 			id="address"
 			disabled={!!webRequest}
 			data-testid="address"

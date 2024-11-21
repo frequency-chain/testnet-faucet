@@ -4,8 +4,8 @@
 	export let faq: string;
 </script>
 
-<div class="flex items-center justify-center my-2 md:my-16">
-	<div class="md:w-2/3 w-5/6 mt-2 md:mt-20">
+<div class="flex items-center justify-center my-2 md:my-f16">
+	<div class="md:w-2/3 w-5/6 mt-2 md:mt-f20">
 		<div class=" items-center text-center">
 			<h3 id="faq" class="title-h3 text-navy">Frequently Asked Questions</h3>
 			<div
