@@ -12,9 +12,6 @@ module.exports = {
         title: ['Newake', 'sans-serif'],
         sans: ['Poppins', 'sans-serif'],
       },
-      colors: {
-        cream: '#FEFAF3',
-      }
     }
   }
 };

@@ -19,7 +19,7 @@
 		target="_blank"
 		rel="noreferrer"
 	>
-		<button class="btn btn-primary"> See transaction details</button>
+		<button class="freq-btn btn-primary"> See transaction details</button>
 	</a>
 {/if}
 

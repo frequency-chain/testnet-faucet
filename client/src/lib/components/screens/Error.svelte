@@ -14,7 +14,7 @@
 <div class="message" data-testid="error">
 	{error ?? "There was an error during the transaction."}
 </div>
-<button class="btn btn-primary" data-testid="reload" on:click={onGoBack}> Go back </button>
+<button class="freq-btn btn-primary" data-testid="reload" on:click={onGoBack}> Go back </button>
 
 <style lang="postcss">
 	.message {

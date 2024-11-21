@@ -26,7 +26,7 @@
 <main class="mt-9 px-9 md:px-f64 lg:px-0">
   <SocialTags />
   <MarkUp {faq} />
-  <div class="flex items-center justify-center mt-16 mb-4 md:my-16">
+  <div class="flex items-center justify-center mt-16 mb-f48 md:my-16">
     <!-- @ts-ignore svelte-ignore -->
     <Card>
         {#if !$operation}

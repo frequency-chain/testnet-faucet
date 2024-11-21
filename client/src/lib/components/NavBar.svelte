@@ -11,7 +11,7 @@
 	</div>
 	<div class="my-auto min-w-f120 md:w-f192">
 		<a href="#faq">
-			<button class="btn btn-primary p-f8 font-sans md:p-inherit"> &#8594; Questions? </button>
+			<button class="freq-btn btn-primary p-f8 font-sans md:p-inherit"> &#8594; Questions? </button>
 		</a>
 	</div>
 </div>
