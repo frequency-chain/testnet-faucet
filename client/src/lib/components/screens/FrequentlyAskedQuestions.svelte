@@ -19,6 +19,6 @@
 
 <style lang="postcss">
   :global(.prose a:hover) {
-    @apply text-teal transition !important;
+    @apply text-primary transition !important;
   }
 </style>

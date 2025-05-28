@@ -1,46 +1,11 @@
-@font-face {
-	font-family: "Newake";
-	src: url("./style/indieground-newakefont-web/Newake-Font-Regular.eot");
-	src:
-		url("./style/indieground-newakefont-web/Newake-Font-Regular.woff") format("woff"),
-		url("./style/indieground-newakefont-web/Newake-Font-Regular.otf") format("opentype"),
-		url("./style/indieground-newakefont-web/Newake-Font-Regular.svg#filename") format("svg");
-}
+@import "@frequency-chain/style-guide";
 
-@tailwind base;
-@tailwind components;
-@tailwind utilities;
-
-button {
-	@apply bg-teal text-black font-bold cursor-pointer;
-	border: 1px solid transparent !important;
-	padding: 0.6em 1.2em;
-	transition: border-color 0.25s;
-}
-
-button:disabled {
-	@apply bg-gray3 text-white !important;
-}
-
-button:hover {
-	@apply opacity-75 !important;
-}
+@source '../../node_modules/@frequency-chain/style-guide/**/*.{svelte,js,ts}';
 
 @media (prefers-color-scheme: light) {
 	:root {
 		@apply text-black bg-white;
 	}
-}
-.freq-btn {
-	@apply w-full rounded-3xl font-bold border-0 text-normal md:text-md;
-}
-
-.btn-primary {
-	@apply text-black bg-teal;
-}
-
-.btn-disabled {
-	@apply text-white bg-gray3;
 }
 
 @layer components {
@@ -77,10 +42,6 @@ button:hover {
 
 	body {
 		@apply m-0 min-w-f320 min-h-[100vh] flex items-center bg-white text-normal;
-	}
-
-	button {
-		@apply select-none;
 	}
 
 	::placeholder {

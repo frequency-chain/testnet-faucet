@@ -32,7 +32,7 @@
       <div class="hidden md:block">All Rights Reserved</div>
       <div class="hidden w-[2px] self-stretch md:block {fgColorBg}"></div>
       <div>
-        <a href={privacyHref} class="underline transition duration-[0.3s] hover:text-teal">Privacy Policy</a>
+        <a href={privacyHref} class="underline transition duration-[0.3s] hover:text-primary">Privacy Policy</a>
       </div>
     </aside>
     <div class="flex gap-f16" aria-label="Social Links">
