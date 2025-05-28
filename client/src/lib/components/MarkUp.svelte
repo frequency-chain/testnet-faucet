@@ -2,7 +2,11 @@
   import { serializeLd } from "$lib/utils";
   import { onMount } from "svelte";
 
-  export let faq: string;
+  interface Props {
+    faq: string;
+  }
+
+  let { faq }: Props = $props();
 
   type QuestionAndAnswer = {
     "@type": "Question";
@@ -13,7 +17,7 @@
     };
   };
 
-  let faqHeader: string;
+  let faqHeader: string = $state();
 
   onMount(() => {
     const lines = faq.split("\n").filter((line) => line.trim().length > 0);

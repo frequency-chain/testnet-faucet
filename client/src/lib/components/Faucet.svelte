@@ -11,8 +11,12 @@
   import { fly } from "svelte/transition";
   import MarkUp from "./MarkUp.svelte";
 
-  export let faq: string;
-  export let network: NetworkData;
+  interface Props {
+    faq: string;
+    network: NetworkData;
+  }
+
+  let { faq, network }: Props = $props();
 
   let parachain: number;
   onMount(() => {

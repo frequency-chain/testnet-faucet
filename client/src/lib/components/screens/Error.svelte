@@ -1,7 +1,11 @@
 <script lang="ts">
 	import ErrorCircle from "../icons/ErrorCircle.svelte";
 
-	export let error: string | undefined;
+	interface Props {
+		error: string | undefined;
+	}
+
+	let { error }: Props = $props();
 
 	function onGoBack() {
 		window.location.reload();
@@ -14,7 +18,7 @@
 <div class="message" data-testid="error">
 	{error ?? "There was an error during the transaction."}
 </div>
-<button class="freq-btn btn-primary" data-testid="reload" on:click={onGoBack}> Go back </button>
+<button class="freq-btn btn-primary" data-testid="reload" onclick={onGoBack}> Go back </button>
 
 <style lang="postcss">
 	.message {

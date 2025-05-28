@@ -1,6 +1,10 @@
-<script type="ts">
-  export let fill='#55B1AB';
-  export let width='100%'
+<script lang="ts" type="ts">
+  interface Props {
+    fill?: string;
+    width?: string;
+  }
+
+  let { fill = '#55B1AB', width = '100%' }: Props = $props();
 </script>
 
 <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" {width} height="68.256" viewBox="0 0 461.117 68.256">

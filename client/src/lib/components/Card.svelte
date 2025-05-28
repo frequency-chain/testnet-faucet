@@ -1,6 +1,11 @@
 <script lang="ts">
 	import { PUBLIC_DEMO_MODE } from "$env/static/public";
 	import { testnet } from "$lib/utils/stores";
+	interface Props {
+		children?: import('svelte').Snippet;
+	}
+
+	let { children }: Props = $props();
 </script>
 
 <div class="bg-navy rounded-3xl text-white w-full md:w-2/3 lg:w-1/2 md:max-w-[700px] px-f12 py-f24 md:px-f56 md:py-f64 lg:px-f64 lg:py-f96 shadow-xl">
@@ -11,7 +16,7 @@
 		</p>
     <div class="items-center text-center px-f16">
       <div class="mt-2 md:mt-8 w-full">
-        <slot />
+        {@render children?.()}
       </div>
     </div>
 	</div>

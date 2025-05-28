@@ -3,7 +3,11 @@
 
 	import Chevron from "./icons/Chevron.svelte";
 
-	export let currentNetwork: NetworkData;
+	interface Props {
+		currentNetwork: NetworkData;
+	}
+
+	let { currentNetwork }: Props = $props();
 </script>
 
 <div class="dropdown w-full mb-14">

@@ -1,4 +1,6 @@
 <script lang="ts">
+	import { preventDefault } from 'svelte/legacy';
+
 	import type { NetworkData } from "$lib/utils/networkData";
 	import { Frequency } from "$lib/utils/networkData";
 	import { operation, testnet } from "$lib/utils/stores";
@@ -8,14 +10,14 @@
 	import NetworkInput from "./ChainDropdown.svelte";
 	import { validateAddress } from "@polkadot/util-crypto";
 
-	let address: string = "";
+	let address: string = $state("");
 	let network: number = -1;
 	let networkData: NetworkData = Frequency;
-	let token: string = "";
-	let formValid: boolean;
-	$: formValid = !!address && !!token && !!network;
+	let token: string = $state("");
+	let formValid: boolean = $derived(!!address && !!token && !!network);
+	
 
-	let webRequest: Promise<string>;
+	let webRequest: Promise<string> = $state();
 
 	function onSubmit() {
 		webRequest = request(address);
@@ -50,7 +52,7 @@
 	}
 </script>
 
-<form on:submit|preventDefault={onSubmit} class="w-full">
+<form onsubmit={preventDefault(onSubmit)} class="w-full">
 	<div class="inputs-container">
 		<label class="label" for="address">
 			<span class="form-label">{$testnet.networkName} Address</span>
@@ -64,7 +66,7 @@
 			disabled={!!webRequest}
 			data-testid="address"
 			required
-			on:focusout={() => addressValid()}
+			onfocusout={() => addressValid()}
 		/>
 	</div>
 	{#if !webRequest}
@@ -75,7 +77,7 @@
 			Get some {$testnet.currency}s
 		</button>
 	{:else}
-		<button class="freq-btn btn-disabled mt-6" disabled><div class="loading" /></button>
+		<button class="freq-btn btn-disabled mt-6" disabled><div class="loading"></div></button>
 	{/if}
 </form>
 

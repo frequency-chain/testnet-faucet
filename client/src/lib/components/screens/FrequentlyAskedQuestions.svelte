@@ -1,7 +1,11 @@
 <script lang="ts">
 	import SvelteMarkdown from "svelte-markdown";
 
-	export let faq: string;
+	interface Props {
+		faq: string;
+	}
+
+	let { faq }: Props = $props();
 </script>
 
 <div class="flex items-center justify-center my-2 md:mt-f16 mb-f96">

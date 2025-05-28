@@ -2,7 +2,11 @@
 	import { testnet } from "$lib/utils/stores";
 	import CheckCircle from "../icons/CheckCircle.svelte";
 
-	export let hash: string;
+	interface Props {
+		hash: string;
+	}
+
+	let { hash }: Props = $props();
 </script>
 
 <div class="icon">

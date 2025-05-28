@@ -1,16 +1,26 @@
 <script lang="ts">
+	import { run } from 'svelte/legacy';
+
 	import { testnet } from "$lib/utils/stores";
 	import { Frequency, getChainName } from "../utils/networkData";
 	import Chevron from "./icons/Chevron.svelte";
 
-	export let network: number = -1;
-	let disabled: boolean = false;
-	let input: HTMLInputElement;
+	interface Props {
+		network?: number;
+	}
 
-	let customValue: boolean = false;
-	let customBtnMessage = "Use preselected chains";
-	$: customBtnMessage = !customValue ? "Use custom chain id" : "Use preselected chains";
-	$: customValue = !getChainName(Frequency, network);
+	let { network = $bindable(-1) }: Props = $props();
+	let disabled: boolean = false;
+	let input: HTMLInputElement = $state();
+
+	let customValue: boolean = $state(false);
+	let customBtnMessage = $state("Use preselected chains");
+	run(() => {
+		customBtnMessage = !customValue ? "Use custom chain id" : "Use preselected chains";
+	});
+	run(() => {
+		customValue = !getChainName(Frequency, network);
+	});
 
 	function switchCustomValue() {
 		if (!customValue) {
@@ -65,7 +75,7 @@
 			>
 				{#each $testnet.chains as chain, i}
 					<li class:selected={network === chain.id} data-testid={`network-${i}`}>
-						<a on:click={() => selectChain(chain.id)}>{chain.name}</a>
+						<a onclick={() => selectChain(chain.id)}>{chain.name}</a>
 					</li>
 				{/each}
 			</ul>

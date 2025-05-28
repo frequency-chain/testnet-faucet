@@ -4,8 +4,12 @@
   import DiscordLogo from "$lib/components/icons/DiscordLogo.svelte"
   import FrequencyLogo from "$lib/components/icons/FrequencyLogo.svelte"
 
-  export let privacyHref: string = 'https://www.frequency.xyz/privacy';
-  export let type: 'light' | 'dark' = 'light';
+  interface Props {
+    privacyHref?: string;
+    type?: 'light' | 'dark';
+  }
+
+  let { privacyHref = 'https://www.frequency.xyz/privacy', type = 'light' }: Props = $props();
 
   let fgColorText = {
     dark: 'text-white',

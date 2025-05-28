@@ -10,8 +10,8 @@
 	const dispatch = createEventDispatcher();
 
 	const captchaId = "captcha_element";
-	let captchaError = false;
-	let captchaKey = "";
+	let captchaError = $state(false);
+	let captchaKey = $state("");
 
 	const handleSuccess = (payload: { detail?: { token: string } }) => {
 		const token = payload?.detail?.token || "";
@@ -41,4 +41,4 @@
 		</div>
 	</div>
 {/if}
-<div id={captchaId} />
+<div id={captchaId}></div>
