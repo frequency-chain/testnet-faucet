@@ -57,7 +57,7 @@
 			isRequired={true}
 			onfocusout={() => addressValid()}
 			error={undefined}
-			class="w-full min-w-f320 text-black"
+			class="w-full min-w-[400px] text-black"
 		/>
 	{#if !webRequest}
 		<div class="grid place-items-center">
