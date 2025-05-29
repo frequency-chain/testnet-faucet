@@ -27,7 +27,7 @@
     for (const line of lines) {
       if (line.startsWith("#")) {
         questions[++index] = [line, []];
-      } else {
+      } else if(questions[index]) {
         questions[index][1].push(line);
       }
     }

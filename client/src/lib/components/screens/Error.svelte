@@ -1,6 +1,6 @@
 <script lang="ts">
 	import { Button } from "@frequency-chain/style-guide";
-import ErrorCircle from "../icons/ErrorCircle.svelte";
+	import ErrorCircle from "../icons/ErrorCircle.svelte";
 
 	interface Props {
 		error: string | undefined;
