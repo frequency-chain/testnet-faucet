@@ -1,40 +1,19 @@
 <script lang="ts">
 	import { testnet } from "$lib/utils/stores";
 	import CheckCircle from "../icons/CheckCircle.svelte";
-
-	interface Props {
-		hash: string;
-	}
-
-	let { hash }: Props = $props();
 </script>
 
-<div class="icon">
-	<CheckCircle class="max-w-full"/>
-</div>
-<div class="message">
+<CheckCircle class="max-w-full text-success"/>
+<div class="lgText mb-4 text-center text-success">
 	Successfully sent {$testnet.currency}s to your address.
 </div>
 
-{#if false && $testnet.explorer}
-	<a
-		href={`${$testnet.explorer}/extrinsic/${hash}`}
-		data-testid="success-button"
-		target="_blank"
-		rel="noreferrer"
-	>
-		<button class="freq-btn btn-primary"> See transaction details</button>
-	</a>
-{/if}
-
-<style lang="postcss">
-	.message {
-		@apply text-lg mb-4;
-		font-weight: 400;
-		font-size: 16px;
-	}
-
-	.icon {
-		@apply w-full grid place-items-center text-success;
-	}
-</style>
+<!-- {#if false && $testnet.explorer}
+		<Button 
+			href={`${$testnet.explorer}/extrinsic/${hash}`}
+			data-testid="success-button"
+			target="_blank"
+			rel="noreferrer">
+				See transaction details
+		</Button>
+{/if} -->

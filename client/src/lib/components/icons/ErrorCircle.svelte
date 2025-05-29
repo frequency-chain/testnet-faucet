@@ -1,9 +1,7 @@
 <script lang="ts">
-  interface Props {
-    [key: string]: any
-  }
+  import type { HTMLAttributes } from 'svelte/elements';
 
-  let { ...rest }: Props = $props();
+  let { ...rest }: HTMLAttributes<HTMLElement> = $props();
 </script>
 
 <svg

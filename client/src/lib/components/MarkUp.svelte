@@ -8,16 +8,16 @@
 
   let { faq }: Props = $props();
 
-  type QuestionAndAnswer = {
+  interface QuestionAndAnswer {
     "@type": "Question";
     name: string;
     acceptedAnswer: {
       "@type": "Answer";
       text: string;
     };
-  };
+  }
 
-  let faqHeader: string = $state();
+  let faqHeader: string = $state("");
 
   onMount(() => {
     const lines = faq.split("\n").filter((line) => line.trim().length > 0);

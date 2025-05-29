@@ -1,5 +1,6 @@
 <script lang="ts">
-	import ErrorCircle from "../icons/ErrorCircle.svelte";
+	import { Button } from "@frequency-chain/style-guide";
+import ErrorCircle from "../icons/ErrorCircle.svelte";
 
 	interface Props {
 		error: string | undefined;
@@ -8,26 +9,12 @@
 	let { error }: Props = $props();
 
 	function onGoBack() {
-		window.location.reload();
+	  window.location.reload();
 	}
 </script>
 
-<div class="icon max-w-full">
-	<ErrorCircle class="max-w-full"/>
-</div>
-<div class="message" data-testid="error">
+<ErrorCircle class="max-w-full text-error"/>
+<div class="lgText mb-4 text-center text-error" data-testid="error">
 	{error ?? "There was an error during the transaction."}
 </div>
-<button class="freq-btn btn-primary" data-testid="reload" onclick={onGoBack}> Go back </button>
-
-<style lang="postcss">
-	.message {
-		@apply text-lg mb-4;
-		font-weight: 400;
-		font-size: 16px;
-	}
-
-	.icon {
-		@apply w-full grid place-items-center text-error;
-	}
-</style>
+<Button data-testid="reload" intent="outlined-light" onclick={onGoBack}>Go back</Button>

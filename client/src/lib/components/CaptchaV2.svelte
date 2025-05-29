@@ -14,14 +14,14 @@
 	let captchaKey = $state("");
 
 	const handleSuccess = (payload: { detail?: { token: string } }) => {
-		const token = payload?.detail?.token || "";
-		dispatch("token", token);
-		captchaError = false;
+	  const token = payload?.detail?.token || "";
+	  dispatch("token", token);
+	  captchaError = false;
 	};
 
 	const handleError = (error: Error) => {
-		captchaError = true;
-		console.error(error);
+	  captchaError = true;
+	  console.error(error);
 	};
 </script>
 

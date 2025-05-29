@@ -6,10 +6,10 @@ const config: PlaywrightTestConfig = {
     port: 4173,
     env: {
       PUBLIC_CAPTCHA_KEY: "10000000-ffff-ffff-ffff-000000000001",
-      PUBLIC_FAUCET_URL: "https://example.com/test",
-    },
+      PUBLIC_FAUCET_URL: "https://example.com/test"
+    }
   },
-  testDir: "tests",
+  testDir: "tests"
 };
 
 export default config;

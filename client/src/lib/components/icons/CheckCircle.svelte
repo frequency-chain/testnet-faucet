@@ -1,7 +1,5 @@
 <script lang="ts">
-  interface Props {
-    [key: string]: any
-  }
+  type Props = Record<string, any>;
 
   let { ...rest }: Props = $props();
 </script>
