@@ -37,8 +37,8 @@
 	  }
 	}
 
-	function onToken(tokenEvent: CustomEvent<string>) {
-	  token = tokenEvent.detail;
+	function onToken(tokenValue: string) {
+	  token = tokenValue;
 	}
 
 	async function request(address: string): Promise<string> {
@@ -61,7 +61,7 @@
 		/>
 	{#if !webRequest}
 		<div class="grid place-items-center">
-			<CaptchaV2 on:token={onToken} />
+			<CaptchaV2 onToken={onToken} />
 		</div>
 		<Button intent="filled-light" type="submit" data-testid="submit-button" disabled={!formValid}>
 			Get some {$testnet.currency}s
