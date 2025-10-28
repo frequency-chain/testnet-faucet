@@ -259,6 +259,11 @@
     tailwind-merge "^3.3.1"
     tailwindcss-animate "^1.0.7"
 
+"@hcaptcha/vanilla-hcaptcha@^1.1.2":
+  version "1.1.2"
+  resolved "https://registry.yarnpkg.com/@hcaptcha/vanilla-hcaptcha/-/vanilla-hcaptcha-1.1.2.tgz#df640cc0e88351bed80ab51688b45ffde17c63ed"
+  integrity sha512-FeYL9XohymEF6LOgLr0JCreasYmNDdyvIvPbO9DNZX42UWpqXCrbM+RAxTTKWRyQQkVYX/k9Rr9G/uEPZj01lg==
+
 "@humanfs/core@^0.19.1":
   version "0.19.1"
   resolved "https://registry.yarnpkg.com/@humanfs/core/-/core-0.19.1.tgz#17c55ca7d426733fe3c561906b8173c336b40a77"

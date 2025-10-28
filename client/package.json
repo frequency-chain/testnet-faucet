@@ -46,6 +46,7 @@
 	"type": "module",
 	"dependencies": {
 		"@frequency-chain/style-guide": "^0.4.1",
+		"@hcaptcha/vanilla-hcaptcha": "^1.1.2",
 		"@internationalized/date": "^3.10.0",
 		"@tailwindcss/postcss": "^4.1.16",
 		"bits-ui": "^2.14.1",
