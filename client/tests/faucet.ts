@@ -13,12 +13,14 @@ interface FormSubmit {
 	parachain_id?: string;
 }
 
-const getFormElements = (page: Page, getCaptcha = false) => {
-	let captcha: Locator = {} as Locator;
-	if (getCaptcha) {
+const getFormElements = async (page: Page, getCaptcha = false) => {
+		let captcha: Locator = {} as Locator;
+		if (getCaptcha) {
+		// Wait for hCaptcha iframe to load (may take time in CI environments)
 		const iframe = page.locator(
 			'iframe[title="Widget containing checkbox for hCaptcha security challenge"]'
 		);
+		await iframe.waitFor({ state: 'attached', timeout: 10000 });
 		captcha = iframe.contentFrame().getByLabel("hCaptcha checkbox with text");
 	}
 	return {

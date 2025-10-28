@@ -13,6 +13,6 @@
   <NavBar />
   {@render children?.()}
   <div class="px-[10px] sm:px-[30px] md:px-[40px] lg:px-[80px] bg-navy w-full pt-f48">
-    <Footer intent="light" class="vertical-lg:w-[100%] w-full" />
+    <Footer intent="light" class="w-full" />
   </div>
 </div>
