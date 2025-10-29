@@ -1,8 +1,11 @@
 @import '@frequency-chain/style-guide/styles';
 
-@source '../src/**/*.{svelte,js,ts}';
-@source '../node_modules/@frequency-chain/style-guide/**/*.{svelte,js,ts}';
+/* Scan local src files and style guide components for Tailwind classes */
+@source '../../node_modules/@frequency-chain/style-guide/**/*.{svelte,js,ts}';
 
-@theme {
-  --clear: transparent;
+/* Fix missing --clear variable from style guide */
+@layer theme {
+  :root {
+    --clear: transparent;
+  }
 }
