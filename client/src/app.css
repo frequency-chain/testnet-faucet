@@ -3,9 +3,27 @@
 /* Scan local src files and style guide components for Tailwind classes */
 @source '../../node_modules/@frequency-chain/style-guide/**/*.{svelte,js,ts}';
 
-/* Fix missing --clear variable from style guide */
+/* Fix missing --clear variable from style guide that breaks body colors */
 @layer theme {
   :root {
     --clear: transparent;
+  }
+}
+
+/* Override broken body styling from style guide */
+@layer base {
+  body {
+    background-color: transparent !important;
+    color: #242527 !important;
+  }
+}
+
+/* Force generation of classes used by style guide components that aren't being scanned */
+@layer utilities {
+  .bg-white {
+    background-color: var(--color-white, #fff);
+  }
+  .bg-cream {
+    background-color: var(--cream, #fcf3e4);
   }
 }
