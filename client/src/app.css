@@ -1,3 +1,8 @@
 @import '@frequency-chain/style-guide/styles';
 
-@source '../../node_modules/@frequency-chain/style-guide/**/*.{svelte,js,ts}';
+@source '../src/**/*.{svelte,js,ts}';
+@source '../node_modules/@frequency-chain/style-guide/**/*.{svelte,js,ts}';
+
+@theme {
+  --clear: transparent;
+}
