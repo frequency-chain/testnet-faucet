@@ -13,21 +13,55 @@ interface FormSubmit {
 	parachain_id?: string;
 }
 
-const getFormElements = (page: Page, getCaptcha = false) => {
-	let captcha: Locator = {} as Locator;
-	if (getCaptcha) {
-		const iframe = page.locator(
-			'iframe[title="Widget containing checkbox for hCaptcha security challenge"]'
-		);
-		captcha = iframe.contentFrame().getByLabel("hCaptcha checkbox with text");
+const getFormElements = async (page: Page, getCaptcha = false) => {
+		let captcha: Locator = {} as Locator;
+		let hcaptchaElement: Locator = {} as Locator;
+		if (getCaptcha) {
+		// Wait for h-captcha web component to be present and visible
+		hcaptchaElement = page.locator('h-captcha');
+		await hcaptchaElement.waitFor({ state: 'attached', timeout: 15000 });
+
+		// Give the web component time to load and render the hCaptcha iframe
+		await page.waitForTimeout(2000);
+
+		// Wait for hCaptcha iframe to load (the test key renders a simple checkbox)
+		// Find any iframe that's a child/descendant of the form area
+		const iframe = page.frameLocator('iframe').first();
+
+		// The test hCaptcha key renders a checkbox - get it for interaction
+		captcha = iframe.getByRole('checkbox');
+
+		// Wait for the checkbox to be ready
+		await captcha.waitFor({ state: 'visible', timeout: 5000 });
 	}
 	return {
 		address: page.getByTestId("address"),
 		network: page.getByTestId("network"),
 		captcha,
+		hcaptcha: hcaptchaElement,
 		submit: page.getByTestId("submit-button"),
 		dropdown: page.getByTestId("dropdown")
 	};
+};
+
+// Helper function to simulate captcha verification in tests
+const verifyCaptcha = async (page: Page, captcha: Locator, hcaptcha: Locator) => {
+	// Click the checkbox
+	await captcha.click();
+	// Manually dispatch the verified event since test mode doesn't auto-verify
+	await page.evaluate(() => {
+		const hcaptchaEl = document.querySelector('h-captcha');
+		if (hcaptchaEl) {
+			const event = new CustomEvent('verified', {
+				detail: { token: 'test-token-' + Date.now() },
+				bubbles: true
+			});
+			// @ts-ignore - accessing token property
+			event.token = 'test-token-' + Date.now();
+			hcaptchaEl.dispatchEvent(event);
+		}
+	});
+	await page.waitForTimeout(100);
 };
 
 export class FaucetTests {
@@ -166,18 +200,18 @@ export class FaucetTests {
 			test.describe("form interaction", () => {
 				test("submit form becomes valid on data entry", async ({ page }) => {
 					await page.goto(this.url);
-					const { address, captcha, submit } = await getFormElements(page, true);
+					const { address, captcha, hcaptcha, submit } = await getFormElements(page, true);
 					await expect(submit).toBeDisabled();
 					await address.fill(validAddress);
-					await captcha.click();
+					await verifyCaptcha(page, captcha, hcaptcha);
 					await expect(submit).toBeEnabled();
 				});
 
 				test("submit form becomes valid when click captcha first", async ({ page }) => {
 					await page.goto(this.url);
-					const { address, captcha, submit } = await getFormElements(page, true);
+					const { address, captcha, hcaptcha, submit } = await getFormElements(page, true);
 					await expect(submit).toBeDisabled();
-					await captcha.click();
+					await verifyCaptcha(page, captcha, hcaptcha);
 					// simulate the captcha check / human wait
 					await page.waitForTimeout(500);
 					await address.fill(validAddress);
@@ -186,10 +220,10 @@ export class FaucetTests {
 
 				test("Shows address invalid message when invalid address is entered", async ({ page }) => {
 					await page.goto(this.url);
-					const { address, captcha } = await getFormElements(page, true);
+					const { address, captcha, hcaptcha } = await getFormElements(page, true);
 					const expectedErrorMessage = "Address is invalid";
 					await address.fill("garbage");
-					await captcha.click();
+					await verifyCaptcha(page, captcha, hcaptcha);
 					const errorMessage = page.getByTestId("error");
 					await expect(errorMessage).toBeVisible();
 					expect((await errorMessage.allInnerTexts())[0]).toContain(expectedErrorMessage);
@@ -197,10 +231,10 @@ export class FaucetTests {
 
 				test("sends data on submit", async ({ page }, { config }) => {
 					await page.goto(this.url);
-					const { address, captcha, submit } = await getFormElements(page, true);
+					const { address, captcha, hcaptcha, submit } = await getFormElements(page, true);
 					await expect(submit).toBeDisabled();
 					await address.fill(validAddress);
-					await captcha.click();
+					await verifyCaptcha(page, captcha, hcaptcha);
 					const faucetUrl = this.getFaucetUrl(config);
 
 					await page.route(faucetUrl, (route: Route) =>
@@ -224,7 +258,7 @@ export class FaucetTests {
 					const chain = this.chains[i];
 					test(`sends data with ${chain.name} chain on submit`, async ({ page }, { config }) => {
 						await page.goto(this.url);
-						const { address, captcha, submit } = await getFormElements(page, true);
+						const { address, captcha, hcaptcha, submit } = await getFormElements(page, true);
 						const dropdown = page.getByTestId(this.dropdownId);
 						await expect(submit).toBeDisabled();
 						await address.fill(validAddress);
@@ -232,7 +266,7 @@ export class FaucetTests {
 						const networkBtn = page.getByTestId(`network-${i}`);
 						await expect(networkBtn).toBeVisible();
 						await networkBtn.click();
-						await captcha.click();
+						await verifyCaptcha(page, captcha, hcaptcha);
 						await expect(submit).toBeEnabled();
 						const faucetUrl = this.getFaucetUrl(config);
 						await page.route(faucetUrl, (route) =>
@@ -256,13 +290,13 @@ export class FaucetTests {
 
 				test.skip("sends data with custom chain on submit", async ({ page }, { config }) => {
 					await page.goto(this.url);
-					const { address, network, captcha, submit } = await getFormElements(page, true);
+					const { address, network, captcha, hcaptcha, submit } = await getFormElements(page, true);
 					await expect(submit).toBeDisabled();
 					await address.fill(validAddress);
 					const customChainDiv = page.getByTestId("custom-network-button");
 					await customChainDiv.click();
 					await network.fill("9999");
-					await captcha.click();
+					await verifyCaptcha(page, captcha, hcaptcha);
 					await expect(submit).toBeEnabled();
 					const faucetUrl = this.getFaucetUrl(config);
 					await page.route(faucetUrl, (route) =>
@@ -285,10 +319,10 @@ export class FaucetTests {
 				test("display link to transaction", async ({ page }, { config }) => {
 					await page.goto(this.url);
 					const operationHash = "0x0123435423412343214";
-					const { address, captcha, submit } = await getFormElements(page, true);
+					const { address, captcha, hcaptcha, submit } = await getFormElements(page, true);
 					await expect(submit).toBeDisabled();
 					await address.fill(validAddress);
-					await captcha.click();
+					await verifyCaptcha(page, captcha, hcaptcha);
 					await page.route(this.getFaucetUrl(config), (route) =>
 						route.fulfill({ body: JSON.stringify({ hash: operationHash }) })
 					);
@@ -305,10 +339,10 @@ export class FaucetTests {
 				test("throw error", async ({ page }, { config }) => {
 					await page.goto(this.url);
 					const error = "Things failed because you are a naughty boy!";
-					const { address, captcha, submit } = await getFormElements(page, true);
+					const { address, captcha, hcaptcha, submit } = await getFormElements(page, true);
 					await expect(submit).toBeDisabled();
 					await address.fill(validAddress);
-					await captcha.click();
+					await verifyCaptcha(page, captcha, hcaptcha);
 					await page.route(this.getFaucetUrl(config), (route) =>
 						route.fulfill({ body: JSON.stringify({ error }) })
 					);

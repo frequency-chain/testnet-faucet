@@ -1,37 +1,48 @@
 <script lang="ts">
-	import { createEventDispatcher } from "svelte";
+	import '@hcaptcha/vanilla-hcaptcha';
 	import Cross from "./icons/Cross.svelte";
-	// @ts-ignore
-	import HCaptcha from "svelte-hcaptcha";
 	import { PUBLIC_CAPTCHA_KEY } from "$env/static/public";
 
+	interface Props {
+		onToken?: (token: string) => void;
+	}
+
+	const { onToken }: Props = $props();
+
 	const siteKey = PUBLIC_CAPTCHA_KEY;
-
-	const dispatch = createEventDispatcher();
-
-	const captchaId = "captcha_element";
 	let captchaError = $state(false);
-	let captchaKey = $state("");
+	let captchaElement: HTMLElement | undefined = $state(undefined);
 
-	const handleSuccess = (payload: { detail?: { token: string } }) => {
-	  const token = payload?.detail?.token || "";
-	  dispatch("token", token);
-	  captchaError = false;
-	};
+	$effect(() => {
+		if (!captchaElement) return;
 
-	const handleError = (error: Error) => {
-	  captchaError = true;
-	  console.error(error);
-	};
+		const handleVerified = (e: Event) => {
+			// The vanilla-hcaptcha event has token directly on the event object
+			const token = (e as any).token || '';
+			onToken?.(token);
+			captchaError = false;
+		};
+
+		const handleError = () => {
+			captchaError = true;
+		};
+
+		captchaElement.addEventListener('verified', handleVerified);
+		captchaElement.addEventListener('error', handleError);
+
+		return () => {
+			captchaElement?.removeEventListener('verified', handleVerified);
+			captchaElement?.removeEventListener('error', handleError);
+		};
+	});
 </script>
 
-<HCaptcha
-	sitekey={siteKey}
-	bind:this={captchaKey}
+<h-captcha
+	bind:this={captchaElement}
+	site-key={siteKey}
 	theme="light"
-	on:success={handleSuccess}
-	on:error={handleError}
-/>
+	size="normal"
+></h-captcha>
 
 {#if captchaError}
 	<div class="alert alert-error shadow-lg text-black" data-testid="error">
@@ -41,4 +52,3 @@
 		</div>
 	</div>
 {/if}
-<div id={captchaId}></div>
